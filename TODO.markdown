@@ -1,15 +1,3 @@
-# TODO Need to select interface and specify its IP address as parameter. Right now it's hardcoded into search-nex
-# Enumerate IP addresses of all devices: https://github.com/bbcoimbra/system-getifaddrs
-# or maybe Ruby 2.1
-
-# Multicast discovery via the specified interface
-# https://github.com/turboladen/upnp
-# http://docs.seattlerb.org/UPnP/UPnP/SSDP.html
-# But the discovery stuff is so simple, we might ass well write it ourselves
-
-# Find out where to go
-./search-nex.py |grep LOCATION
-
 # Fetch the endpoint URLs
 curl http://10.0.0.1:64321/DmsRmtDesc.xml|xmllint --format -
 

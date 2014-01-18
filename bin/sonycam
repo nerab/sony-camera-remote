@@ -3,10 +3,12 @@
 $:.unshift(File.join(File.dirname(__FILE__), "/../lib"))
 require 'sony_camera_remote'
 
-verbose = false
+verbose = true
 
 begin
-  puts SonyCameraRemote::Discovery::Client.new(ARGV[0]).discover.map{|c| c.location}
+  SonyCameraRemote::Discovery::Client.new(ARGV[0]).discover.each do |camera|
+    puts camera
+  end
 rescue
   STDERR.puts("Error: #{$!}")
 
