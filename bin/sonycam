@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+$:.unshift(File.join(File.dirname(__FILE__), "/../lib"))
+require 'sony_camera_remote'
+
+verbose = false
+
+begin
+  puts SonyCameraRemote::Discovery::Client.new(ARGV[0]).discover.map{|c| c.location}
+rescue
+  STDERR.puts("Error: #{$!}")
+
+  if verbose
+    $!.backtrace.each do |b|
+      STDERR.puts(b)
+    end
+  end
+end

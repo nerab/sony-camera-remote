@@ -12,7 +12,7 @@ end
 
 class MiniTest::Test
   def fixture(name)
-    File.join(File.dirname(__FILE__), 'fixtures', name)
+    File.read(File.join(File.dirname(__FILE__), 'fixtures', name))
   end
 
   def mocked(cassette, &block)

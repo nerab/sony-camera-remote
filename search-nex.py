@@ -21,4 +21,4 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind((host,0))
 
 sock.sendto(ssdpRequest, (SSDP_ADDR, SSDP_PORT))
-print sock.recv(10000)
+print sock.recv(1000)

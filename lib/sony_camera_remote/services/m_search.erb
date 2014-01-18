@@ -1,0 +1,5 @@
+M-SEARCH * HTTP/1.1
+HOST: <%= host %>:<%= port %>
+MAN: ssdp:discover
+MX: <%= timeout %>
+ST: urn:schemas-sony-com:service:ScalarWebAPI:1

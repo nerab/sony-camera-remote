@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+CACHE-CONTROL: max-age=1800
+EXT:
+LOCATION: http://10.0.0.1:64321/DmsRmtDesc.xml
+SERVER: UPnP/1.0 SonyImagingDevice/1.0
+ST: urn:schemas-sony-com:service:ScalarWebAPI:1
+USN: uuid:00000000-0005-0010-8000-1c994c079994::urn:schemas-sony-com:service:ScalarWebAPI:1
+X-AV-Physical-Unit-Info: pa=""; pl=;
+X-AV-Server-Info: av=5.0; hn=""; cn="Sony Corporation"; mn="SonyImagingDevice"; mv="1.0";
