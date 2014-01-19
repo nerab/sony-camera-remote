@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/nerab/sony-camera-remote.png?branch=master)](http://travis-ci.org/nerab/sony-camera-remote)
 
-Provides a wrapper around to API for cameras that support the Sony [Camera Remote API](http://developer.sony.com/develop/cameras/).
+Provides a Ruby wrapper around the API for cameras that support the Sony [Camera Remote API](http://developer.sony.com/develop/cameras/).
 
 ## Installation
 
