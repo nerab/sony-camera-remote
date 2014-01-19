@@ -49,7 +49,7 @@ module SonyCameraRemote
       def discover
         Array(@local_addrs).map do |local_addr|
           begin
-            fetch(local_addr)
+            DeviceInfo.fetch(inquire(local_addr).location)
           rescue Errno::EADDRNOTAVAIL
             # TODO Notify observers instead of writing to STDOUT
             STDOUT.puts("Warning: Could not bind to #{local_addr.ip_address}.")
@@ -63,7 +63,7 @@ module SonyCameraRemote
 
       private
 
-      def fetch(local_addr)
+      def inquire(local_addr)
         if local_addr.ipv4?
           socket = UDPSocket.new
         else

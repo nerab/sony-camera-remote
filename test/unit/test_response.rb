@@ -1,9 +1,8 @@
 require 'helper'
-require 'json'
 
 class ResponseTest < MiniTest::Test
   def setup
-    @response = SonyCameraRemote::Discovery::Response.new(fixture('discovery_response.txt'))
+    @response = Response.new(fixture('discovery_response.txt'))
   end
 
   def test_location

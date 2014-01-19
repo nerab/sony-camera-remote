@@ -3,6 +3,7 @@ require_relative '../lib/sony_camera_remote'
 require 'vcr'
 
 include SonyCameraRemote
+include SonyCameraRemote::Discovery
 
 VCR.configure do |c|
   c.cassette_library_dir = 'test/fixtures/vcr'
