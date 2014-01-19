@@ -6,8 +6,12 @@ require 'sony_camera_remote'
 verbose = true
 
 begin
-  SonyCameraRemote::Discovery::Client.new(ARGV[0]).discover.each do |camera|
-    puts camera
+  SonyCameraRemote::Discovery::Client.new(ARGV[0]).discover.each do |device|
+    if camera = device.services['camera']
+      puts "#{device.name} has camera service at #{camera.base_uri}."
+    else
+      puts "#{device.name} has no camera service."
+    end
   end
 rescue
   STDERR.puts("Error: #{$!}")
