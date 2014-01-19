@@ -1,5 +1,3 @@
-require 'uri'
-
 module SonyCameraRemote
   class Model < Struct.new(:name, :description, :url)
   end

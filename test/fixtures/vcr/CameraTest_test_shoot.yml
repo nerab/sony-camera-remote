@@ -1,0 +1,26 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://10.0.0.1:10000/sony/camera
+    body:
+      encoding: UTF-8
+      string: '{"version":"1.0","params":[],"id":1,"method":"actTakePicture"}'
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '134'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"id":1,"result":[["http://10.0.0.1:60152/pict140119_1918300000.JPG?%211234%21http%2dget%3a%2a%3aimage%2fjpeg%3a%2a%21%21%21%21%21"]]}'
+    http_version: 
+  recorded_at: Sun, 19 Jan 2014 18:18:30 GMT
+recorded_with: VCR 2.8.0

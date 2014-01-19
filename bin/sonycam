@@ -1,17 +1,41 @@
 #!/usr/bin/env ruby
 
-$:.unshift(File.join(File.dirname(__FILE__), "/../lib"))
+$:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'sony_camera_remote'
+require 'yaml'
+include SonyCameraRemote
 
-verbose = true
+config_file = File.join(ENV['HOME'], '.' << File.basename(__FILE__))
+
+if File.exist?(config_file)
+  config = YAML::load(File.read(config_file))
+else
+  config = {:verbose => true}
+end
+
+verbose = config[:verbose]
+method = ARGV[0] || 'shoot'
 
 begin
-  SonyCameraRemote::Discovery::Client.new(ARGV[0]).discover.each do |device|
-    if camera = device.services['camera']
-      puts "#{device.name} has camera service at #{camera.base_uri}."
-    else
-      puts "#{device.name} has no camera service."
-    end
+  camera_uris = config[:uris]
+
+  if camera_uris.nil? || camera_uris.empty?
+    # Discover and save endpoints
+    camera_uris = Discovery::Client.new.discover.map do |device|
+      if camera_service = device.services['camera']
+        STDERR.puts "#{device.name} has camera service at #{camera_service.base_uri}." if verbose
+        camera_service.base_uri.to_s
+      else
+        STDERR.puts "Error: #{device.name} has no camera service."
+      end
+    end.compact
+
+    config[:uris] = camera_uris
+    File.open(config_file, 'w'){|f| YAML.dump(config, f)}
+  end
+
+  camera_uris.each do |uri|
+    puts Camera.new(uri).send(method)
   end
 rescue
   STDERR.puts("Error: #{$!}")

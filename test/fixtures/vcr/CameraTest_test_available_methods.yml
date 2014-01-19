@@ -1,0 +1,26 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://10.0.0.1:10000/sony/camera
+    body:
+      encoding: UTF-8
+      string: '{"version":"1.0","params":[],"id":1,"method":"getAvailableApiList"}'
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '682'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"id":1,"result":[["getMethodTypes","getAvailableApiList","setShootMode","getShootMode","getSupportedShootMode","getAvailableShootMode","setSteadyMode","getSteadyMode","getSupportedSteadyMode","getAvailableSteadyMode","setViewAngle","getViewAngle","getSupportedViewAngle","getAvailableViewAngle","setMovieQuality","getMovieQuality","getSupportedMovieQuality","getAvailableMovieQuality","startLiveview","stopLiveview","actTakePicture","startMovieRec","stopMovieRec","startIntervalStillRec","stopIntervalStillRec","setCameraFunction","getCameraFunction","getSupportedCameraFunction","getAvailableCameraFunction","getStorageInformation","getApplicationInfo","getVersions","getEvent"]]}'
+    http_version: 
+  recorded_at: Sun, 19 Jan 2014 15:47:36 GMT
+recorded_with: VCR 2.8.0

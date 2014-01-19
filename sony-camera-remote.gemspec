@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = SonyCameraRemote::VERSION
   spec.authors       = ['Nicholas E. Rabenau']
   spec.email         = ['nerab@gmx.at']
-  spec.description   = %q{Provides access to cameras that support the Sony [Camera Remote API](http://developer.sony.com/develop/cameras/).}
+  spec.description   = %q{Provides a wrapper around to API for cameras that support the Sony [Camera Remote API](http://developer.sony.com/develop/cameras/).}
   spec.summary       = %q{Ruby API for the Sony Camera Remote API}
   spec.homepage      = "https://github.com/nerab/#{spec.name}"
   spec.license       = 'MIT'

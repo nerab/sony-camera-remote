@@ -1,0 +1,26 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://10.0.0.1:10000/sony/camera
+    body:
+      encoding: UTF-8
+      string: '{"version":"1.0","params":[],"id":1,"method":"getSupportedShootMode"}'
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '53'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"id":1,"result":[["still","movie","intervalstill"]]}'
+    http_version: 
+  recorded_at: Sun, 19 Jan 2014 14:57:50 GMT
+recorded_with: VCR 2.8.0
