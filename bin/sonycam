@@ -14,7 +14,13 @@ else
 end
 
 verbose = config[:verbose]
-method = ARGV[0] || 'shoot'
+debug   = config[:debug]
+
+if 0 == ARGV.size
+  method = 'shoot'
+else
+  method = ARGV.shift
+end
 
 begin
   camera_uris = config[:uris]
@@ -35,12 +41,19 @@ begin
   end
 
   camera_uris.each do |uri|
-    puts Camera.new(uri).send(method)
+    cam = Camera.new(uri, debug ? $stderr : nil)
+    STDERR.puts "Sending '#{method}' to #{cam.application_info} at #{uri}:" if verbose
+
+    if (ARGV.empty?)
+      puts cam.send(method) # getter; print the response
+    else
+      cam.send("#{method}=", ARGV) # setter; only print errors
+    end
   end
 rescue
   STDERR.puts("Error: #{$!}")
 
-  if verbose
+  if debug
     $!.backtrace.each do |b|
       STDERR.puts(b)
     end

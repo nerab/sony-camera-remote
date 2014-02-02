@@ -24,38 +24,89 @@ module SonyCameraRemote
       end
     end
 
-    def initialize(uri)
+    def initialize(uri, debug = nil)
       self.class.base_uri(URI(uri).to_s)
+      self.class.debug_output(debug) unless debug.nil?
 
       ai = application_info
       raise IncompatibleAPIVersion(API_VERSION, ai.api_version) if API_VERSION != ai.api_version
     end
 
-    def shootmode
-      options = {:body => DEFAULT_OPTIONS.merge({:method => 'getShootMode'}).to_json}
-      self.class.post('', options)['result'].first
-    end
-
-    def supported_shootmodes
-      options = {:body => DEFAULT_OPTIONS.merge({:method => 'getSupportedShootMode'}).to_json}
-      self.class.post('', options)['result'].first
-    end
-
     def application_info
-      options = {:body => DEFAULT_OPTIONS.merge({:method => 'getApplicationInfo'}).to_json}
-      result = self.class.post('', options)['result']
+      result = request('getApplicationInfo')
       ApplicationInfo.new(result.first, result.last)
     end
 
     def available_methods
-      options = {:body => DEFAULT_OPTIONS.merge({:method => 'getAvailableApiList'}).to_json}
-      self.class.post('', options)['result'].first
+      request('getAvailableApiList').first
     end
 
-    # blocking
-    def shoot
-      options = {:body => DEFAULT_OPTIONS.merge({:method => 'actTakePicture'}).to_json}
-      self.class.post('', options)['result'].first
+    #
+    # Take a picture or start recording.
+    #
+    # This method behaves like pressing the shutter release button:
+    #
+    #   * if the camera is in movie mode, it will start recording
+    #   * if the camera is in still mode, it will take a picture
+    #   * if the camera is in intervallstill mode, it will start the interval recording
+    #
+    def record
+      case mode
+        when :movie
+          request('startMovieRec').first
+        else
+          request('actTakePicture').first
+      end
+    end
+
+    def supported?(mode)
+      supported_modes.include?(mode)
+    end
+
+    def available?(mode)
+      available_modes.last.include?(mode)
+    end
+
+    def mode=(new_mode)
+      request('setShootMode', Array(new_mode).first).first == 0
+    end
+
+    def mode
+      request('getShootMode').first.to_sym
+    end
+
+    def supported_modes
+      request('getSupportedShootMode').first.map{|m| m.to_sym}
+    end
+
+    def available_modes
+      result = request('getAvailableShootMode')
+      [result.first.to_sym, result.last.map{|m| m.to_sym}]
+    end
+
+    private
+
+    def assert_supported(mode)
+      raise "#{mode} is not supported by this camera" unless supported?(mode)
+    end
+
+    def assert_available(mode)
+      raise "#{mode} is not available right now" unless available?(mode)
+    end
+
+    def assert_mode(mode)
+      raise "Camera is not in #{mode} but in #{self.mode} mode." unless self.mode == mode
+    end
+
+    def request(method, params = [])
+      options = {:body => DEFAULT_OPTIONS.merge({:method => method, :params => Array(params)}).to_json}
+      result = self.class.post('', options)
+
+      if result['result']
+        result['result']
+      else
+        raise Errors::CODE[result['error'].first] || "Unknown response: #{result}"
+      end
     end
   end
 end

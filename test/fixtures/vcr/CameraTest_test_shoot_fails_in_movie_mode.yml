@@ -20,15 +20,15 @@ http_interactions:
       - application/json
     body:
       encoding: UTF-8
-      string: '{"id":1,"result":["still"]}'
+      string: '{"id":1,"result":["movie"]}'
     http_version: 
-  recorded_at: Sat, 01 Feb 2014 23:45:03 GMT
+  recorded_at: Sat, 01 Feb 2014 23:42:35 GMT
 - request:
     method: post
     uri: http://10.0.0.1:10000/sony/camera
     body:
       encoding: UTF-8
-      string: '{"version":"1.0","params":[],"id":1,"method":"actTakePicture"}'
+      string: '{"version":"1.0","params":["still"],"id":1,"method":"setShootMode"}'
     headers: {}
   response:
     status:
@@ -38,12 +38,35 @@ http_interactions:
       Connection:
       - close
       Content-Length:
-      - '134'
+      - '21'
       Content-Type:
       - application/json
     body:
       encoding: UTF-8
-      string: '{"id":1,"result":[["http://10.0.0.1:60152/pict140202_0044410001.JPG?%211234%21http%2dget%3a%2a%3aimage%2fjpeg%3a%2a%21%21%21%21%21"]]}'
+      string: '{"id":1,"result":[0]}'
     http_version: 
-  recorded_at: Sat, 01 Feb 2014 23:45:04 GMT
+  recorded_at: Sat, 01 Feb 2014 23:42:36 GMT
+- request:
+    method: post
+    uri: http://10.0.0.1:10000/sony/camera
+    body:
+      encoding: UTF-8
+      string: '{"version":"1.0","params":[],"id":1,"method":"getShootMode"}'
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '27'
+      Content-Type:
+      - application/json
+    body:
+      encoding: UTF-8
+      string: '{"id":1,"result":["still"]}'
+    http_version: 
+  recorded_at: Sat, 01 Feb 2014 23:42:36 GMT
 recorded_with: VCR 2.8.0

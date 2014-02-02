@@ -22,5 +22,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"id":1,"result":[["still","movie","intervalstill"]]}'
     http_version: 
-  recorded_at: Sun, 02 Feb 2014 00:01:10 GMT
+  recorded_at: Sat, 01 Feb 2014 23:59:37 GMT
 recorded_with: VCR 2.8.0

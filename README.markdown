@@ -48,5 +48,8 @@ Or install it yourself as:
     # Fetch the endpoint URLs manually
     curl http://10.0.0.1:64321/DmsRmtDesc.xml | xmllint --format -
 
+    # change mode to still
+    curl -v -X POST -H "Content-Type: application/json" -d '{"method":"setShootMode", "params":["still"], "id":1, "version":"1.0"}' http://10.0.0.1:10000/sony/camera
+
     # take a picture manually
     curl -v -X POST -H "Content-Type: application/json" -d '{"method":"actTakePicture", "params":[], "id":1, "version":"1.0"}' http://10.0.0.1:10000/sony/camera
